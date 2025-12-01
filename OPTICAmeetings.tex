@@ -31,6 +31,7 @@
 \usepackage{geometry}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit fester Breite
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}  % rechtsbündig mit fester Breite
+\usepackage{float}
 
 
 \begin{document}
@@ -57,7 +58,9 @@
 	
 	To address this challenge, the HeatSHIFT project has developed a web-based preliminary design tool that enables the systematic assessment and comparison of large-scale heat pump systems. The tool incorporates technical, economic, and environmental evaluations and requires minimal user input by providing representative default values and simplified equations. It includes refrigerant selection, process simulation, cost estimation, subsidy modeling, and scenario as well as sensitivity analyses.
 	
-	The tool is intended to support planners, utilities, and municipal stakeholders in making data-driven decisions and accelerating the deployment of large-scale heat pumps.
+	Complementing this, an interactive, GIS-based platform for waste heat mapping and analysis has been developed to identify, visualize, and evaluate potential industrial waste heat sources across Germany. The platform builds upon data provided by the German Federal Office for Energy Efficiency’s Waste Heat Platform and allows users to apply spatial and technical filters, assess source temperature levels and availability, and examine proximity to existing or planned district heating networks.
+	
+	Together, these tools support planners, utilities, and municipal stakeholders in making data-driven decisions and accelerating the deployment of large-scale heat pumps in district heating systems.
 \end{abstract}
 
 
@@ -118,6 +121,7 @@ Heat pumps are considered a key technology for the energy transition. According 
 
 As part of the research project \textit{HeatSHIFT}, a preliminary design tool has been developed to support the early-stage assessment and comparison of large-scale heat pump systems. In the following sections, the HeatSHIFT project is briefly introduced, and the structure, functionality, and application of the tool are presented in detail.
 
+In addition to the development of the large-scale heat pump pre-assessment tool, a web-based GIS environment was implemented to systematically explore and evaluate industrial waste heat potentials across Germany. The platform draws upon data from the German Federal Office for Energy Efficiency’s Waste Heat Platform [QUELLE] and provides advanced mapping and filtering functionalities to identify promising waste heat sources and assess their suitability for district heating integration. By linking geospatial information with technical and operational parameters such as temperature level, availability, and proximity to potential heat consumers, the platform enables a more comprehensive understanding of regional waste heat potentials.
 
 
 
@@ -303,6 +307,195 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 %		\label{fig:eingespartes_co2} 
 %	\end{figure}
 
+\section{Interactive Platform for Waste Heat Mapping and Analysis}
+This tool enables users to identify, visualize, and analyze industrial waste heat sources and their proximity to high heat demand density areas in Germany. By integrating publicly available data from the German Federal Office for Energy Efficiency’s Waste Heat Platform (BAFA PfA) and combining it with additional geospatial datasets, the tool supports stakeholders in recognizing technically and economically feasible recovery options.
+
+The following chapters present the conceptual framework, data foundations, software architecture, and functional capabilities of the platform.
+
+
+\subsection{Conceptual Framework}
+
+This platform is designed as a decision-support and exploration tool that bridges the gap between raw data and practical planning processes.
+All displayed information is based on publicly accessible or open data, ensuring reproducibility and accountability. A web-based, map-centered interface enables users to intuitively explore complex datasets without requiring GIS or data analytics expertise. In essence, the platform aims to help users identify which waste heat sources are particularly suitable for utilization.
+
+Rather than performing detailed techno-economic calculations, the platform provides a screening-level assessment that helps users identify and prioritize potential projects for further study. Determining optimal options for excess heat utilization is naturally complex, as it involves balancing technical feasibility, economic viability, environmental impacts, regulatory constraints, and the specific objectives of each organization~\cite{Montella.2025}. Given this complexity, the platform deliberately focuses on providing an initial, transparent screening rather than a full decision-support model. While a formal evaluation matrix or scoring methodology is not yet implemented, its development is intended as part of future research.
+
+The following parameters represent the key technical and spatial criteria for user-driven assessments of waste heat utilization potential, covered by the presented platform.
+
+\begin{enumerate}
+	\item \textbf{Temperature level} – determines whether the waste heat can be directly fed into a network or requires upgrading via a heat pump.
+	\item \textbf{Available thermal power (heat quantity)} – indicates the potential contribution to local heat demand.
+	\item \textbf{Temporal availability} – shows how well the source aligns with seasonal heat demand.
+	\item \textbf{Type of waste heat (medium)} – such as cooling water, exhaust air, or process water. This information is derived through additional classification steps unique to the developed tool.
+	\item \textbf{Spatial proximity to potential heat consumers} – evaluated through geospatial analysis of distances between waste heat sources (WHS) and district heating areas (DHA).
+\end{enumerate}
+
+The first three parameters originate from the BAFA dataset, whereas the last two - waste heat type and spatial proximity - represent distinct features of this platform and significantly enhance its analytical value.
+
+\subsection{Data Sources and Structure}
+\subsubsection{Waste Heat Data (BAFA Platform)}
+The \textit{Waste Heat Platform} (Plattform für Abwärme, PfA) of the German Federal Office for Energy Efficiency (BAFA) is the primary data foundation of the webtool and constitutes one of the most comprehensive national datasets on industrial waste heat potentials~\cite{bfee_pfa}. As of the most recent update, it comprises information from approximately 3,000 companies and about 26,000 individual waste heat sources, corresponding to a total reported annual waste heat potential of around 244~TWh.
+
+This national database contains information reported by industrial and commercial facilities across Germany. According to the underlying legal framework, only installations exceeding specific annual final energy consumption thresholds are required to report, while smaller facilities are exempt. Furthermore, data publication may be restricted upon request if confidentiality concerns exist. 
+The dataset includes company and site information such as street addresses, temperature ranges, available thermal power, control options and indicative operational periods. Exact geographic coordinates are not provided.
+
+Overall, the BAFA data offer a valuable national overview of industrial waste heat potentials but remain heterogeneous in quality and completeness. In particular, attributes such as the type of heat carrier medium or detailed temporal availability profiles are not included, which limits their direct applicability for project-level analyses.
+
+\subsubsection{Heat Demand Areas}
+To contextualize these sources within their regional energy infrastructure, this webtool integrates additional spatial data representing areas with existing or expected district heating demand. Ideally, such information would be based on geospatial datasets of existing district heating networks, as provided by several regional mapping initiatives, e.g. the Energieatlas NRW)~\cite{EnergieatlasNRW}. However, comprehensive nationwide coverage of district heating network geodata is currently not available.
+
+As an alternative, the \textit{Pan-European Thermal Atlas (PETA~5.2)} developed within the \textit{Heat Roadmap Europe} and \textit{sEEnergies} projects is used~\cite{Moller.2018, Fleiter.2020, sEEnergiesOpenData}. PETA5.2 provides a harmonized European dataset of heat demand densities, categorizing areas into five demand classes in gigajoules per hectare (GJ/ha). For the present analysis, density classes~3 to~5 (ranging from approximately 500 to 3000~GJ/ha) are selected, representing typical urban and suburban zones where district heating systems are either already present or technically and economically viable.
+The data is provided through the \textit{Halmstad University District Heating and Cooling Database} and serves as an indicator for both existing and anticipated district heating areas.
+
+By combining industrial waste heat data from the BAFA platform with regional heat demand density information from PETA, the webtool enables users to identify spatial correlations between potential heat sources and likely consumer areas. This coupling forms the foundation for subsequent proximity analyses and qualitative suitability assessments.
+
+\subsubsection{Categorisation of Waste Heat Sources}
+
+Since the BAFA dataset does not explicitly specify the physical heat carrier or the underlying process type of each waste heat source, an additional categorisation step was implemented to infer this information from the available textual fields. Several classification approaches were evaluated, including a keyword-based rule model, large language models (LLMs), and conventional machine learning algorithms.
+
+All methods were trained and validated on a manually labelled subset of roughly 1 000 entries. Among them, the keyword-based approach delivered the most robust and interpretable performance while ensuring full transparency for users. It was therefore selected for the final workflow.
+
+To enable a more detailed technical interpretation of the reported waste heat potentials, the classified sources were grouped into eight categories. 
+These categories represent typical physical media or process types from which waste heat arises and therefore support the assessment of possible recovery technologies.
+The keyword-based classification was performed using German-language input terms, as these reflect the original entries in the BAFA database.
+Table~\ref{tab:whs_categories} provides an overview of the applied classification scheme, including concise descriptions and representative keywords used for assignment.
+
+
+
+\begin{table}[H]
+	\centering
+	\caption{Categorisation of waste heat sources based on keyword analysis.}
+	\begin{tabular}{p{3.3cm} p{8cm} p{5cm}}
+		\hline
+		\textbf{Category} & \textbf{Description} & \textbf{Typical Keywords} \\
+		\hline
+		Cooling Water & Waste heat discharged through cooling circuits, condensers, or cooling towers. Common in power generation, metal processing, and chemical industries. & cooling water, condenser, cooling tower, heat exchanger \\
+		\hline
+		Wastewater & Thermal energy contained in process effluents or sewage flows. Relevant for food industry, paper production, or wastewater treatment plants. & wastewater, process water, sewage, treatment plant \\
+		\hline
+		Exhaust Air / Flue Gas & Hot exhaust gases or air from combustion, drying, or ventilation processes. Frequently found in ovens, kilns, and thermal dryers. & exhaust air, flue gas, chimney, furnace, combustion \\
+		\hline
+		Cooling / Refrigeration System & Heat rejected by refrigeration or air-conditioning systems, typically at low to medium temperature levels. Found in food processing, cold storage, and HVAC installations. & refrigeration, chiller, cooling unit, ice water, air conditioning \\
+		\hline
+		CHP / Power Plant / Turbine & Waste heat from combined heat and power units, turbines, or engines, partly already recovered in existing systems. & CHP, turbine, engine, generator, power plant \\
+		\hline
+		Compressed Air / Compressor / Pump & Heat generated by mechanical compression processes, such as compressors, pumps, or air systems. Often continuous and available at moderate temperatures. & compressor, pump, compressed air, blower, pressurised air \\
+		\hline
+		Electronics / Transformer & Low-grade waste heat emitted by electrical equipment such as server farms, transformers, converters, or power electronics. & transformer, converter, rectifier, inverter \\
+		\hline Other / Undefined & Entries with insufficient information or mixed characteristics that cannot be assigned clearly. & --- \\ \hline
+	\end{tabular}
+	\label{tab:whs_categories}
+\end{table}
+
+Classifying the waste heat sources provides several important benefits for both data interpretation and practical decision-making. It transforms the heterogeneous and often unstructured textual information in the BAFA dataset into a consistent, analysable format. This enables a more systematic comparison of sources and supports meaningful aggregations across different sectors and technologies. Identifying the underlying physical medium or process type is essential for assessing which recovery technologies may be technically feasible, since suitable heat exchangers, hydraulic concepts, or heat pump configurations strongly depend on the nature of the waste heat stream. Additionally, the categorization enhances the usability of the platform by allowing users to filter, interpret, and prioritize waste heat potentials according to their specific planning objectives.
+
+\subsection{Spatial and Functional Analysis}
+Beyond the integration and classification of waste heat data, the webtool provides functionalities that enable spatial interpretation and visual interaction with the processed information. 
+These features are designed to help users explore the spatial relationships between industrial waste heat sources and potential heat consumers and to assess the local feasibility of heat recovery and integration into district heating systems. 
+The analysis focuses on two main components: the determination of spatial proximity between waste heat sources and heat demand areas, and the map-based user interface that visualizes these relationships through an intuitive and interactive representation.
+
+To operationalize the conceptual approach described above, the platform integrates several geospatial and analytical components. Road network data were retrieved via the OSMnx Python library, which accesses OpenStreetMap data~\cite{Boeing.2017, OSM}. Network analysis was performed using NetworkX~\cite{Hagberg.2008}. Because the BAFA PfA does not provide exact geographic coordinates, these were initially derived through automated geocoding using the OSM Nominatim service.
+
+\subsubsection{Spatial Proximity and Reachability Analysis}
+To assess the spatial relationship between industrial waste heat sources (WHS) and potential consumer areas, a polygon-based proximity and reachability analysis was implemented. 
+This approach allows users to identify which heat sources are located within a technically or economically reasonable distance from existing or expected district heating regions.
+
+The analysis combines two complementary spatial concepts:
+\begin{enumerate}
+	\item \textbf{Linear proximity:} The straight-line distance between each waste heat source and the nearest district heating area (DHA) border is computed to provide a general indication of spatial closeness. This metric is computationally efficient and serves as an initial screening parameter.
+	\item \textbf{Network-based reachability:} In order to represent realistic connection paths, a second analysis step determines the reachable area along existing transport and infrastructure networks. 
+	The calculation is based on road and pathway data from OSM, which are converted into a network graph representation. 
+	For each waste heat source, the algorithm identifies the nearest accessible node within the OSM network. 
+	Since many industrial facilities are located on large properties with internal roads or courtyards not represented in OSM, the search radius around the source coordinate is dynamically increased until a valid connection to the public network is established.
+	
+	From this starting node, all possible paths along the network are explored using a Dijkstra shortest-path algorithm, which computes the cumulative travel distance along connected edges, as provided by the NetworkX implementation~\cite{Hagberg.2008}. 
+	All end-nodes reachable within the defined maximum path length of 500 m are stored, collectively defining the reachability area of the waste heat source.
+	The set of reachable end points is then converted into a polygon using convex hull and smoothing operations to delineate the reachability area around the source. 
+	This resulting polygon visually represents the potential spatial extent within which a technical heat connection could be established (see Fig.~\ref{fig:reachability_area}). 
+	
+	\begin{figure}[H] 
+		\centering 
+		\includegraphics[width=0.8\linewidth]{Abbildungen/Dijkstra.png}
+		\caption{Visualization of a representative WHS reachability area} 
+		\label{fig:reachability_area} 
+	\end{figure}
+	The threshold value (500 m) was chosen as a heuristic parameter to generate representative connection ranges while maintaining computational efficiency. It does not imply an economic optimum but serves as an illustrative reference distance for the visualization of technically accessible areas. In practice, however, the feasible connection distance of a district heating pipeline is influenced by several factors. These include the specific investment cost per meter of pipeline construction (covering materials, excavation, and surface reinstatement), the heat demand density along the potential route and the resulting annual heat utilization, as well as the expected thermal losses and their effect on overall system efficiency. Moreover, the available connection power and the temperature level of the waste heat source play an important role. Finally, topographical and infrastructural constraints, such as terrain characteristics, necessary crossings, or the availability of suitable road corridors, can significantly affect the practicality and cost of a pipeline connection~\cite{Frederiksen.2013}.
+\end{enumerate}
+
+The resulting polygons are intersected with the heat demand layer (from PETA) to reveal spatial overlaps between potential sources and consumer areas, as illustrated in Fig.~\ref{fig:Intersection}.
+This intersection analysis provides a first-order indicator of technical connection opportunities. It allows users to visually explore how many and which sources are located within the feasible connection range of heat demand clusters. 
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{Abbildungen/Intersection.png}
+	\caption{Intersection of WHS reachability area and DHA} 
+	\label{fig:Intersection} 
+\end{figure}
+
+\subsubsection{Mapping and User Interaction}
+
+The visual interface of the webtool is designed to provide an intuitive and transparent representation of industrial waste heat potentials and their spatial context. 
+It enables users to interactively explore, filter, and interpret geospatial data through a web-based map environment built upon the \textit{Folium} and \textit{Leaflet} libraries~\cite{Leaflet}. All map elements are generated from the processed geospatial dataset.
+
+\paragraph{Filtering Functionality.}
+The webtool includes an integrated filtering interface (see Fig. ~\ref{fig:filter}) that allows users to tailor the displayed dataset according to technical and spatial criteria. 
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=\linewidth]{Abbildungen/filter.png}
+	\caption{Filter interface} 
+	\label{fig:filter} 
+\end{figure}
+Filters can be applied to specific regions, performance ranges, temperature levels, and waste heat categories. 
+Users may enter a city name or postal code to define a search centre and specify a search radius in kilometres. 
+Additional parameters include a minimum available thermal power and optionally a maximum distance to the nearest district heating area, enabling focused analysis of spatially relevant sources.
+
+A temperature slider allows dynamic restriction of the displayed sources to selected temperature intervals between~0\,°C and~200\,°C. 
+Further checkboxes enable filtering by waste heat category as described in Table ~\ref{tab:whs_categories} and by indicative availability periods (e.g., continuous operation or weekday schedules). 
+Once applied, the filters immediately update the map view, allowing users to refine their search and focus on technically and spatially feasible heat sources within the defined area of interest.
+
+\paragraph{Map Layout and Layer Structure.}
+The central element of the webtool is an interactive map with adjustable zoom levels. 
+At the national scale, users obtain an overview of the spatial distribution of waste heat sources across Germany, while regional zoom levels allow for detailed inspection of individual sites and their surroundings. 
+Separate layers are provided for:
+\begin{itemize}
+	\item Industrial waste heat sources (WHS),
+	\item District heating or high heat demand areas (DHA),
+	\item Network-based reachability areas of individual sources,
+	\item Spatial intersections between WHS and DHA polygons.
+\end{itemize}
+
+\paragraph{Visual Encoding and Symbol Design.}
+Each waste heat source is represented by a marker whose colour encodes the temperature level of the reported waste heat. 
+A continuous colour scale from blue to red is applied, where blue represents low-temperature sources (below 40~°C), yellow and orange denote medium-temperature ranges (75-110~°C), and red highlights high-temperature sources above 150~°C. 
+The marker shape is linked to the WHS category, enabling users to visually distinguish between the types of medium (see Fig. ~\ref{fig:legend}).
+When selecting an individual source, a popup window provides detailed information including company name, location, temperature, available power, and calculated distance to the nearest district heating area. 
+This enables users to quickly assess the relevance of a source without leaving the map interface.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{Abbildungen/legend.png}
+	\caption{Map legend} 
+	\label{fig:legend} 
+\end{figure}
+
+\paragraph{Representation of Reachability Areas.}
+For each industrial site, the computed reachability area - derived from the network-based proximity analysis - is displayed as a semi-transparent yellow polygon surrounding the source-marker. These polygons illustrate the area that can be reached within the defined maximum path length of 500~m along existing road networks. They provide a visual impression of potential connection corridors between the waste heat source and nearby consumer zones.
+\paragraph{Intersection Visualisation.}
+Areas where the reachability polygons overlap with heat demand regions are highlighted in green, indicating spatial matches between potential waste heat sources and feasible district heating areas, as shown in Fig.~\ref{fig:Intersection}.
+These intersections represent zones of particular interest for further technical or economic evaluation, as they combine sufficient temperature level, available thermal power, and spatial proximity, depending on the users filter settings.
+The green overlay thus serves as a visual indicator of potential integration opportunities.
+\paragraph{Map Interaction and Functionality.}
+Users can freely pan and zoom across the map, toggle individual layers on or off and apply filter settings to display only selected categories, temperature ranges or source types. 
+The map view automatically adjusts its extent when filters are applied, ensuring that relevant features remain visible at appropriate zoom levels. Radial fan layout ensures that multiple features with identical or near-identical coordinates are displayed without overlap (see Fig.~\ref{fig:fan})
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{Abbildungen/fan.png}
+	\caption{Multiple WHS with different temperature levels at one industrial site} 
+	\label{fig:fan} 
+\end{figure}
+
+Overall, the interactive map representation forms the core of the user experience within the webtool. 
+It transforms numerical and spatial data into an interpretable visual environment that supports user-driven exploration, comparison, and qualitative assessment of waste heat utilisation potentials.
+
+
 \section{Conclusion}
 
 Large-scale heat pumps represent a promising technology for the decarbonization of the heating sector, particularly within existing DH systems. However, their deployment remains limited due to complex planning processes and a lack of early-stage planning tools. 
@@ -311,6 +504,11 @@ The HeatSHIFT webtool addresses this gap by providing a freely accessible, user-
 
 By relying on validated default values and simplified modeling approaches, the tool enables a structured comparison of technology options, even in the absence of detailed input data. It thus provides valuable orientation for planners, utilities, and policymakers committed to accelerating the heat transition.
 
+The waste heat mapping platform presented here provides a structured and accessible way to screen industrial waste heat potentials by integrating national BAFA data with geospatial analysis, a transparent classification approach, and an intuitive interactive map. Through its combination of linear and network-based proximity calculations, it enables users to quickly identify where technically accessible waste heat sources coincide with areas of high heat demand.
+
+Although the tool is not intended to perform full techno-economic assessments, it offers a valuable first step in narrowing down promising candidate sites for further investigation. By transforming heterogeneous data into a coherent, user-driven spatial exploration environment, the platform supports early-stage planning and increases transparency in the identification of waste heat utilisation opportunities.
+
+Future enhancements may include additional infrastructure datasets, refined temporal modelling, and the development of a structured evaluation framework to further strengthen the platform’s analytical capabilities.
 
 \vspace{5mm}
 
@@ -350,6 +548,79 @@ By relying on validated default values and simplified modeling approaches, the t
 
 \bibitem{iso817} ISO 817 (2014). \textit{Refrigerants - Designation and safety classification}
 
+\bibitem{bfee_pfa}
+Bundesstelle für Energieeffizienz (2025):
+\textit{Plattform für Abwärme}.
+Online verfügbar unter \url{https://www.bfee-online.de/BfEE/DE/Effizienzpolitik/Plattform_fuer_Abwaerme/plattform_fuer_abwaerme_node.html},
+zuletzt geprüft am 01.12.2025.
+
+\bibitem{Boeing.2017}
+Boeing, Geoff (2017):
+\textit{OSMnx: New methods for acquiring, constructing, analyzing, and visualizing complex street networks}.
+In: Computers, Environment and Urban Systems 65, S. 126--139.
+doi:10.1016/j.compenvurbsys.2017.05.004.
+
+\bibitem{EnergieatlasNRW}
+Land NRW (2025):
+\textit{Energieatlas NRW}.
+Online verfügbar unter \url{https://www.energieatlas.nrw.de/site/planungskarte_waerme},
+zuletzt geprüft am 01.12.2025.
+
+\bibitem{Fleiter.2020}
+Fleiter, Tobias; Manz, Pia; Neuwirth, Marius; Mildner, Felix; Persson, Urban;
+Kermeli, Katerina; Crijns-Graus, Wina; Rutten, Cathelijne (2020):
+\textit{Documentation on excess heat potentials of industrial sites including open data file with selected potentials}.
+Zenodo. doi:10.5281/zenodo.4785411.
+
+\bibitem{Frederiksen.2013}
+Frederiksen, Svend; Werner, Sven (2013):
+\textit{District heating and cooling}.
+Studentlitteratur AB, Lund.
+ISBN 9144085303.
+
+\bibitem{Hagberg.2008}
+Hagberg, Aric A.; Schult, Daniel A.; Swart, Pieter J. (2008):
+\textit{Exploring Network Structure, Dynamics, and Function using NetworkX}.
+In: Proceedings of the 7th Python in Science Conference,
+hrsg. von Gael Varoquaux, Travis Vaught und Jarrod Millman,
+SciPy, S. 11--15.
+doi:10.25080/TCWV9851.
+
+\bibitem{Leaflet}
+Agafonkin, Vladimir (2025):
+\textit{Leaflet — an open-source JavaScript library for interactive maps}.
+Online verfügbar unter \url{https://leafletjs.com/},
+zuletzt geprüft am 01.12.2025.
+
+\bibitem{Moller.2018}
+Möller, Bernd; Wiechers, Eva; Persson, Urban; Grundahl, Lars; Connolly, David (2018):
+\textit{Heat Roadmap Europe: Identifying local heat demand and supply areas with a European thermal atlas}.
+In: Energy 158, S. 281--292.
+doi:10.1016/j.energy.2018.06.025.
+
+\bibitem{Montella.2025}
+Montella, Luisa; Liu, Xiufeng; Monaco, Roberto; Murino, Teresa; Nielsen, Per Sieverts (2025):
+\textit{An integrated multi-criteria decision making framework for industrial excess heat recovery and utilization}.
+In: Energy 318, Artikel 134721.
+doi:10.1016/j.energy.2025.134721.
+
+\bibitem{OSM}
+OpenStreetMap contributors (2025):
+\textit{OpenStreetMap}.
+Online verfügbar unter \url{https://www.openstreetmap.org},
+zuletzt geprüft am 01.12.2025.
+
+\bibitem{sEEnergies.Peta5}
+sEEnergies (2021):
+\textit{Peta5 | sEEnergies}.
+Online verfügbar unter \url{https://www.seenergies.eu/peta5/},
+zuletzt geprüft am 01.12.2025.
+
+\bibitem{sEEnergiesOpenData}
+Flensburg, Halmstad and Aalborg Universities (2022):
+\textit{Pan-European Thermal Atlas version 5.2}.
+Online verfügbar unter \url{https://s-eenergies-open-data-euf.hub.arcgis.com/},
+zuletzt geprüft am 01.12.2025.
 
 
 \end{thebibliography}
