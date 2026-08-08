@@ -32,7 +32,32 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit fester Breite
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}  % rechtsbündig mit fester Breite
 \usepackage{float}
+\usepackage{fancyhdr}
 
+% ------------------------------------------------------------
+% First-page footer
+% ------------------------------------------------------------
+\fancypagestyle{firstpage}{
+	\fancyhf{}
+	
+	% No header/footer lines
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+	
+	% Cite-as information
+	\fancyfoot[C]{%
+		\parbox{\textwidth}{%
+			\raggedright
+			\footnotesize
+			\textbf{Cite as:}
+			Jetzinger, V.; Finkenrath, M.; Rieger, L.; Riegger, M.; Pressa, C.,
+			\textit{Techno-Economic and Environmental Pre- Assessment of
+				Large-Scale Heat Pumps Using the HeatSHIFT Webtool}, Kempten University of Applied Sciences,
+			DOI: \href{https://doi.org/XX.XXXX/XXXXXXXX}
+			{XX.XXXX/XXXXXXXX}
+		}%
+	}
+}
 
 \begin{document}
 
@@ -42,67 +67,71 @@
 % \address{Author affiliation and full address}
 % \email{e-mail address}
 
-\author{Verena Jetzinger,\authormark{1,*} Matthias Finkenrath,\authormark{1}, Luca Rieger, \authormark{1} \\ Michael Riegger \authormark{1} and Christian Pressa\authormark{1}}
+\author{Verena Jetzinger\authormark{1,*}, Matthias Finkenrath\authormark{1}, Luca Rieger \authormark{1}, \\ Michael Riegger \authormark{1} and Christian Pressa\authormark{1}}
 
 \vspace{5mm}
 
-\address{\authormark{1}Institute for Energy and Propulsion Technology, University of Applied Sciences Kempten, Bahnhofstraße 61, 87435 Kempten (Allgäu), Germany}
+\address{\authormark{1}Institute for Energy and Propulsion Technology, Kempten University of Applied Sciences, Bahnhofstraße 61, 87435 Kempten (Allgäu), Germany}
 
 
 \email{\authormark{*}verena.jetzinger@hs-kempten.de} %% email address is required
 
 %% Do not add a copyright statement. Optica will add it.
+\thispagestyle{firstpage}
 
 \begin{abstract}
+	
 	Heat pumps are expected to play a central role in the decarbonization of the heating sector. Despite their technical potential to cover Germany’s entire heat demand up to 200\,\textdegree{}C, the market uptake -- particularly for large-scale applications -- remains slow. Complex planning and approval procedures often hinder early project development.
 	
-	To address this challenge, the HeatSHIFT project has developed a web-based preliminary design tool that enables the systematic assessment and comparison of large-scale heat pump systems. The tool incorporates technical, economic, and environmental evaluations and requires minimal user input by providing representative default values and simplified equations. It includes refrigerant selection, process simulation, cost estimation, subsidy modeling, and scenario as well as sensitivity analyses.
+	To address this challenge, the \textit{HeatSHIFT} project has developed a web-based preliminary design tool that enables the systematic assessment and comparison of large-scale heat pump systems. The tool incorporates technical, economic, and environmental evaluations and requires minimal user input by providing representative default values and simplified equations. It includes refrigerant selection, process simulation, cost estimation, subsidy modeling, and scenario as well as sensitivity analyses.
 	
-	Complementing this, an interactive, GIS-based platform for waste heat mapping and analysis has been developed to identify, visualize, and evaluate potential industrial waste heat sources across Germany. The platform builds upon data provided by the German Federal Office for Energy Efficiency’s Waste Heat Platform and allows users to apply spatial and technical filters, assess source temperature levels and availability, and examine proximity to existing or planned district heating networks.
+	Complementing this, an interactive, GIS-based platform for waste heat mapping and analysis has been developed to identify, visualize, and evaluate potential industrial waste heat sources across Germany. The platform builds upon data provided by the German Federal Office for Energy Efficiency’s Waste Heat Platform (BAFA/BfEE Plattform für Abwärme - PfA) and allows users to apply spatial and technical filters, assess source temperature levels and availability, and examine proximity to existing or planned district heating networks.
 	
 	Together, these tools support planners, utilities, and municipal stakeholders in making data-driven decisions and accelerating the deployment of large-scale heat pumps in district heating systems.
 \end{abstract}
 
 
-
+\newpage
 \tableofcontents
 \vspace{5mm}
 
-
+\newpage
 \noindent
 \framebox{%
 	\begin{minipage}{\textwidth}
 		\vspace{1em}
 		
-		\textbf{$\:$ Abbreviations}
+		\noindent\textbf{Abbreviations}
 		
 		\vspace{1em}
 		
-		\begin{tabularx}{\textwidth}{@{} R{2cm} X R{2cm} X @{}}
-			CHP & Combined heat and power &
-			DH & District heating \\[0.25em]
+		\begin{tabularx}{\textwidth}{@{} L{2cm} X L{2cm} X @{}}
+			BAFA & Federal~Office~for Economic Affairs and Export Control &
+			BEW & Federal Funding for Efficient Heating Networks \\[0.5em]
+			
+			BfEE & Federal Office for Energy Efficiency &
+			CHP & Combined heat and power \\[0.5em]
 			
 			COP & Coefficient of performance &
+			DH & District heating \\[0.5em]
+			
+			GWP & Global Warming Potential &
 			KWKG & Combined Heat and Power Act \\[0.5em]
 			
 			NPV & Net present value &
-			BAFA & Federal Office for Economic Affairs and Export Control \\[0.5em]
-			
-			BEW & Federal Funding for Efficient Heating Networks &
-			SCOP & Seasonal coefficient of performance \\[0.5em]
-			
-			GWP & Global Warming Potential &
 			ODP & Ozone Depletion Potential \\[0.5em]
 			
+			PfA & Waste Heat Platform &
+			SCOP & Seasonal coefficient of performance \\[0.5em]
 		\end{tabularx}
 			
 		\vspace{1em}
 		
-		\textbf{$\:$ Nomenclature}
+		\noindent\textbf{Nomenclature}
 		
 		\vspace{1em}
 		
-		\begin{tabularx}{\textwidth}{@{} R{2cm} X R{2cm} X @{}}
+		\begin{tabularx}{\textwidth}{@{} L{2cm} X L{2cm} X @{}}
 			$\dot{Q}$ & Thermal load (kW) &
 			$P$ & Power (kW) \\[0.5em]
 			
@@ -113,37 +142,46 @@
 	\end{minipage}%
 }
 
-\vspace{2em}
 
+\newpage
 \section{Introduction}
 
 Heat pumps are considered a key technology for the energy transition. According to \cite{agorarollout}, heat pumps are technically capable of meeting the entire heat demand in Germany up to temperatures of 200\,\textdegree{}C. This demand currently accounts for over 75\% of the national natural gas consumption. As such, heat pumps represent a central pillar in the decarbonization of the heating sector. However, \cite{agorarollout} also highlights that the market ramp-up -- especially for large-scale heat pumps -- remains slow. This is primarily due to complex planning and permitting procedures.
 
-As part of the research project \textit{HeatSHIFT}, a preliminary design tool has been developed to support the early-stage assessment and comparison of large-scale heat pump systems. In the following sections, the HeatSHIFT project is briefly introduced, and the structure, functionality, and application of the tool are presented in detail.
+As part of the research project \textit{HeatSHIFT}\footnote{Project Homepage: \url{https://bayfis.fza.hs-kempten.de/de/forschungsprojekt/482-heatshift}}\textsuperscript{,}\footnote{Funding information: \url{http://www.enargus.de/detail/?id=23450180}}, a preliminary design tool has been developed to support the early-stage assessment and comparison of large-scale heat pump systems. In the following sections, the \textit{HeatSHIFT} project is briefly introduced, and the structure, functionality, and application of the tool are presented in detail.
 
-In addition to the development of the large-scale heat pump pre-assessment tool, a web-based GIS environment was implemented to systematically explore and evaluate industrial waste heat potentials across Germany. The platform draws upon data from the German Federal Office for Energy Efficiency’s Waste Heat Platform [QUELLE] and provides advanced mapping and filtering functionalities to identify promising waste heat sources and assess their suitability for district heating integration. By linking geospatial information with technical and operational parameters such as temperature level, availability, and proximity to potential heat consumers, the platform enables a more comprehensive understanding of regional waste heat potentials.
+In addition to the development of the large-scale heat pump pre-assessment tool, a web-based GIS environment was implemented to systematically explore and evaluate industrial waste heat potentials across Germany. The platform draws upon data from the German Federal Office for Energy Efficiency’s Waste Heat Platform \cite{bfee_pfa} and provides advanced mapping and filtering functionalities to identify promising waste heat sources and assess their suitability for district heating integration. By linking geospatial information with technical and operational parameters such as temperature level, availability, and proximity to potential heat consumers, the platform enables a more comprehensive understanding of regional waste heat potentials.
 
+\section{\textit{HeatSHIFT} research project}
 
+In order to achieve the German governments climate targets for 2045 and the associated extensive decarbonization of heat supply, district heating (DH) plays a key role. Against the backdrop of emission reduction and the simultaneous enhancement of supply security, the research project \textit{HeatSHIFT} aims to investigate efficient integration options for high-temperature heat pumps in DH networks. The analyses focus on existing DH systems with high supply temperatures of 120 $^\circ$C and above.
 
-\section{HeatSHIFT research project}
+Figure~\ref{fig:heatshift} provides an overview of the scope and partners of the \textit{HeatSHIFT} research project.
 
-In order to achieve the German governments climate targets for 2045 and the associated extensive decarbonization of heat supply, district heating (DH) plays a key role. Against the backdrop of emission reduction and the simultaneous enhancement of supply security, the research project HeatSHIFT aims to investigate efficient integration options for high-temperature heat pumps in DH networks. The analyses focus on existing DH systems with high supply temperatures of 120 $^\circ$C and above.
-
-The core objective of the project is the systematic investigation and both technical and economic evaluation of the use of high-temperature heat pumps through process simulation, taking into account various heat sources and high-temperature heat pump technologies. To this end, realistic process simulation models of high-temperature heat pumps and combined heat and power (CHP) plants -- particularly biomass and waste-to-energy plants -- are developed and combined based on data provided by the project partners. On the basis of validated process simulation models, the integration of high-temperature heat pumps is optimized, and an economic evaluation is performed. 
-
-Furthermore, a simplified tool for the preliminary design of heat pump applications is developed for heat suppliers. This tool is introduced and described in more detail in the following section.
-
-\begin{figure}[!ht] 
+\vspace{-0.5em}
+\begin{figure}[H] 
 	\centering 
-	\includegraphics[width=\linewidth]{Abbildungen/heatshift.png} 
+	\includegraphics[width=\linewidth]{Abbildungen/HeatSHIFT.pdf}
+	\vspace{-2em}
+	\caption{\textit{HeatSHIFT} research project scope and partners.} 
 	\label{fig:heatshift} 
 \end{figure}
-
-
-\section{Webtool}
-
-	The tool aims at facilitating the initial steps in the planning process of large-scale heat pump systems, enabling a systematic comparison of available options, and supporting data-driven decision-making. It is intended for planners, utility companies, research institutions, and municipal decision-makers who seek to actively contribute to the transition toward a climate-neutral heat supply.
+\vspace{-0.5em}
 	
+The core objective of the project is the systematic investigation and both technical and economic evaluation of the use of high-temperature heat pumps through process simulation, taking into account various heat sources and high-temperature heat pump technologies. To this end, realistic process simulation models of high-temperature heat pumps and combined heat and power (CHP) plants -- particularly biomass and waste-to-energy plants -- are developed and combined based on data provided by the project partners. On the basis of validated process simulation models, the integration of high-temperature heat pumps is optimized, and an economic evaluation is performed. 
+
+
+Furthermore, a simplified tool for the preliminary design of heat pump applications is developed for heat suppliers. This tool is introduced and described in more detail in the following section. 
+
+
+\section{\textit{HeatSHIFT Webtool}}
+
+	The \textit{HeatSHIFT Webtool} aims to facilitate the initial steps in the planning process of large-scale heat pump systems by enabling a systematic comparison of available options and supporting data-driven decision-making. It is intended for planners, utility companies, research institutions, and municipal decision-makers seeking to actively contribute to the transition toward a climate-neutral heat supply. 
+
+	\medskip
+	The \textit{HeatSHIFT Webtool} is available online at: \url{https://heat-shift.de/}. 
+	\medskip
+
 	It is designed to operate with minimal prior information. To enable its application even in the absence of detailed input data, representative default values and approximate equations have been predefined for all key parameters. These values are derived from current literature, standard assumptions, and official sources. While they provide a useful basis for initial orientation, they should be adjusted accordingly whenever more accurate information becomes available.
 	
 	The webtool is structured into three main components: technical, economic, and environmental assessment. These components, along with a preceding disclaimer, are presented in the following subsections.
@@ -158,11 +196,11 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 
 		\subsubsection{Refrigerant selection}
 		
-		The tool considers the following refrigerants: R32, R1270, R290, R717, R1234yf, R134a, R227ea, R600a, R236fa, R600, R718, R245fa, R1233zd(E), R245ca, and R601. To define the applicable temperature range for each refrigerant, the lower temperature boundary is set to 5 K above the boiling temperature at a pressure of 1 bar. For R718, an exception is made due to its thermophysical properties, and a reference pressure of 611.655 Pa is applied. The upper temperature boundary is defined as 15 K below the respective critical temperature \cite{vdi4646}. Thermophysical property data are retrieved from the \textit{CoolProp} database \cite{coolprop}. The resulting temperature ranges are summarized in Table~\ref{tab:kaeltemittel}.
+		The tool considers the following refrigerants: R32, R1270, R290, R717, R1234yf, R134a, R227ea, R600a, R236fa, R600, R718, R245fa, R1233zd(E), R245ca, and R601. To define the applicable temperature range for each refrigerant, the lower temperature boundary is set to 5~K above the boiling temperature at a pressure of 1~bar. For R718, an exception is made due to its thermophysical properties, and a reference pressure of 611.655~Pa is applied. The upper temperature boundary is defined as 15~K below the respective critical temperature \cite{vdi4646}. Thermophysical property data are retrieved from the \textit{CoolProp} database \cite{coolprop}. The resulting temperature ranges are summarized in Table~\ref{tab:kaeltemittel}.
 		
-		\begin{table}[!ht] 
+		\begin{table}[H] 
 			\centering 
-			\caption{Applicable temperature ranges for selected refrigerants}
+			\caption{Applicable temperature ranges for selected refrigerants.}
 			 \begin{tabular}{ l c c } 
 			 	\hline 
 			 	\textbf{Refrigerant} & \textbf{Lower temperature limit [$^{\circ}$C]} & 
@@ -187,17 +225,17 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 		
 		From the set of refrigerants suitable for the specified operating temperature range, the user selects one for subsequent process simulation, as illustrated in Figure~\ref{fig:auswahl_km}.
 		
-		\begin{figure}[!ht] 
+		\begin{figure}[H] 
 			\centering 
-			\includegraphics[width=0.8\textwidth]{Abbildungen/Auswahl_KM.png} 
-			\caption{Example selection of refrigerants matching the operating temperature range} \label{fig:auswahl_km} 
+			\includegraphics[width=0.9\textwidth]{Abbildungen/Auswahl_KM.png} 
+			\caption{Example selection of refrigerants matching the operating temperature range.} \label{fig:auswahl_km} 
 			\end{figure}
 		
 		\subsubsection{Cycle simulation}
 		
-		Based on the selected refrigerant, the thermodynamic cycle of a single-stage vapor-compression heat pump is subsequently simulated. A terminal temperature difference of 5 K is assumed for both heat exchangers, and a superheat of 5 K is specified at the compressor outlet. The isentropic compressor efficiency is assumed to be 85 \%, while the mechanical efficiency is set to 95 \%.
+		Based on the selected refrigerant, the thermodynamic cycle of a single-stage vapor-compression heat pump is subsequently simulated. A terminal temperature difference of 5~K is assumed for both heat exchangers, and a superheat of 5~K is specified at the compressor outlet. The isentropic compressor efficiency is assumed to be 85~\%, while the mechanical efficiency is set to 95~\%.
 		
-		Depending on the user input -- either the useful heat output $\dot{Q}{sink}$ or the heat input from the source $\dot{Q}{source}$ -- the respective counterpart, as well as the compressor’s electrical power consumption $P_{el}$, is determined using thermophysical property data from CoolProp. The coefficient of performance (COP) of the heat pump is subsequently calculated according to Equation~\ref{eq:cop}.
+		Depending on the user input -- either the useful heat output $\dot{Q}_{\mathrm{sink}}$ or the heat input from the source $\dot{Q}_{\mathrm{source}}$ -- the respective counterpart, as well as the compressor’s electrical power consumption $P_{el}$, is determined using thermophysical property data from \textit{CoolProp}. The coefficient of performance (COP) of the heat pump is subsequently calculated according to Equation~\ref{eq:cop}.
 		
 		\begin{equation}
 			\text{COP} = \frac{\dot{Q}_{sink}}{P_{el}}
@@ -218,9 +256,9 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 		\begin{figure}[!ht] 
 			\centering 
 			\includegraphics[width=0.8\textwidth]{Abbildungen/ph-diagram.png} 
-			\caption{Visualization of a representative process in a $p$-$h$ diagram} 
+			\caption{Visualization of a representative process in a $p$-$h$ diagram.} 
 			\label{fig:ph-diagram} \end{figure}
-
+	\vspace{-1em}
 	\subsection{Economic evaluation}
 	
 	The economic evaluation requires a range of input parameters. In addition to the investment and operating costs of the heat pump system, system- and operation-specific parameters must be provided, such as the nominal capacity, COP, annual full-load hours, type of heat source, and expected service life. If investment and operating costs are not available, they are estimated based on \cite{pieper2018} and \cite{BAFA2024Modul4}.
@@ -242,10 +280,10 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 		\begin{figure}[!ht] 
 			\centering 
 			\includegraphics[width=0.8\linewidth]{Abbildungen/scenario-analysis.png}
-			\caption{Scenario analysis according to DIN 17463} 
+			\caption{Scenario analysis according to DIN 17463.} 
 			\label{fig:scenario-analysis} 
 		\end{figure}
-
+		\vspace{-1em}
 		
 		\subsubsection{Sensitivity analysis}
 		
@@ -254,10 +292,12 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 		\begin{figure}[!ht] 
 			\centering 
 			\includegraphics[width=\linewidth]{Abbildungen/sensitivity-analysis.png}
-			\caption{Sensitivity analysis according to DIN 17463} 
+			\vspace{-1em}
+			\caption{Sensitivity analysis according to DIN 17463.} 
 			\label{fig:sensitivity-analysis} 
 		\end{figure}
 		
+		\vspace{-1em}
 		\subsubsection{Estimation of potential subsidies}
 		
 		The economic viability of plant operation can be significantly improved through the use of available subsidies. Two potential funding mechanisms are considered in this context. Firstly, a subsidy from the Federal Office for Economic Affairs and Export Control (BAFA) under the Federal Funding for Efficient Heating Networks (BEW funding) may be applicable \cite{BAFA2024}. Additionally, if the heat pump is part of an innovative CHP system, surcharge payments for the generated CHP electricity can be applied for under the KWKG \cite{BAFAKWK}.
@@ -269,7 +309,7 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 		
 		\begin{table}[!ht] 
 			\centering 
-			\caption{Surcharges pursuant to KWKG § 7a for innovative renewable heat}
+			\caption{Surcharges pursuant to KWKG § 7a for innovative renewable heat.}
 			\begin{tabular}{ c c } 
 				\hline 
 				\textbf{Share of innovative renewable heat [\%]} & \textbf{Surcharge [ct/kWh CHP electricity]}  \\ 
@@ -307,11 +347,15 @@ Furthermore, a simplified tool for the preliminary design of heat pump applicati
 %		\label{fig:eingespartes_co2} 
 %	\end{figure}
 
-\section{Interactive Platform for Waste Heat Mapping and Analysis}
-This tool enables users to identify, visualize, and analyze industrial waste heat sources and their proximity to high heat demand density areas in Germany. By integrating publicly available data from the German Federal Office for Energy Efficiency’s Waste Heat Platform (BAFA PfA) and combining it with additional geospatial datasets, the tool supports stakeholders in recognizing technically and economically feasible recovery options.
+\newpage
+\section{\textit{HeatSHIFT Interactive Platform for Waste Heat Mapping and Analysis}}
+This additional tool enables users to identify, visualize, and analyze industrial waste heat sources and their proximity to high heat demand density areas in Germany. By integrating publicly available data from the German Federal Office for Energy Efficiency’s Waste Heat Platform (BAFA PfA) and combining it with additional geospatial datasets, the tool supports stakeholders in recognizing technically and economically feasible recovery options.
 
 The following chapters present the conceptual framework, data foundations, software architecture, and functional capabilities of the platform.
 
+\medskip
+The \textit{HeatSHIFT Interactive Platform for Waste Heat Mapping and Analysis} is not integrated into the website \url{https://heat-shift.de/}, but is provided as Python code via a GitHub repository available at \url{https://github.com/HS-Kempten/PfA_Map}.
+\medskip
 
 \subsection{Conceptual Framework}
 
@@ -344,7 +388,7 @@ Overall, the BAFA data offer a valuable national overview of industrial waste he
 \subsubsection{Heat Demand Areas}
 To contextualize these sources within their regional energy infrastructure, this webtool integrates additional spatial data representing areas with existing or expected district heating demand. Ideally, such information would be based on geospatial datasets of existing district heating networks, as provided by several regional mapping initiatives, e.g. the Energieatlas NRW)~\cite{EnergieatlasNRW}. However, comprehensive nationwide coverage of district heating network geodata is currently not available.
 
-As an alternative, the \textit{Pan-European Thermal Atlas (PETA~5.2)} developed within the \textit{Heat Roadmap Europe} and \textit{sEEnergies} projects is used~\cite{Moller.2018, Fleiter.2020, sEEnergiesOpenData}. PETA5.2 provides a harmonized European dataset of heat demand densities, categorizing areas into five demand classes in gigajoules per hectare (GJ/ha). For the present analysis, density classes~3 to~5 (ranging from approximately 500 to 3000~GJ/ha) are selected, representing typical urban and suburban zones where district heating systems are either already present or technically and economically viable.
+As an alternative, the \textit{Pan-European Thermal Atlas (PETA~5.2)} developed within the \textit{Heat Roadmap Europe} and \textit{sEEnergies} projects is used~\cite{Moller.2018, Fleiter.2020, sEEnergiesOpenData}. PETA5.2 provides a harmonized European dataset of heat demand densities, categorizing areas into five demand classes in gigajoules per hectare (GJ/ha). For the present analysis, density classes~3 to~5 (ranging from approximately 500 to 3,000~GJ/ha) are selected, representing typical urban and suburban zones where district heating systems are either already present or technically and economically viable.
 The data is provided through the \textit{Halmstad University District Heating and Cooling Database} and serves as an indicator for both existing and anticipated district heating areas.
 
 By combining industrial waste heat data from the BAFA platform with regional heat demand density information from PETA, the webtool enables users to identify spatial correlations between potential heat sources and likely consumer areas. This coupling forms the foundation for subsequent proximity analyses and qualitative suitability assessments.
@@ -353,7 +397,7 @@ By combining industrial waste heat data from the BAFA platform with regional hea
 
 Since the BAFA dataset does not explicitly specify the physical heat carrier or the underlying process type of each waste heat source, an additional categorisation step was implemented to infer this information from the available textual fields. Several classification approaches were evaluated, including a keyword-based rule model, large language models (LLMs), and conventional machine learning algorithms.
 
-All methods were trained and validated on a manually labelled subset of roughly 1 000 entries. Among them, the keyword-based approach delivered the most robust and interpretable performance while ensuring full transparency for users. It was therefore selected for the final workflow.
+All methods were trained and validated on a manually labelled subset of roughly 1,000 entries. Among them, the keyword-based approach delivered the most robust and interpretable performance while ensuring full transparency for users. It was therefore selected for the final workflow.
 
 To enable a more detailed technical interpretation of the reported waste heat potentials, the classified sources were grouped into eight categories. 
 These categories represent typical physical media or process types from which waste heat arises and therefore support the assessment of possible recovery technologies.
@@ -415,8 +459,8 @@ The analysis combines two complementary spatial concepts:
 	
 	\begin{figure}[H] 
 		\centering 
-		\includegraphics[width=0.8\linewidth]{Abbildungen/Dijkstra.png}
-		\caption{Visualization of a representative WHS reachability area} 
+		\includegraphics[width=0.6\linewidth]{Abbildungen/Dijkstra.png}
+		\caption{Visualization of a representative WHS reachability area.} 
 		\label{fig:reachability_area} 
 	\end{figure}
 	The threshold value (500 m) was chosen as a heuristic parameter to generate representative connection ranges while maintaining computational efficiency. It does not imply an economic optimum but serves as an illustrative reference distance for the visualization of technically accessible areas. In practice, however, the feasible connection distance of a district heating pipeline is influenced by several factors. These include the specific investment cost per meter of pipeline construction (covering materials, excavation, and surface reinstatement), the heat demand density along the potential route and the resulting annual heat utilization, as well as the expected thermal losses and their effect on overall system efficiency. Moreover, the available connection power and the temperature level of the waste heat source play an important role. Finally, topographical and infrastructural constraints, such as terrain characteristics, necessary crossings, or the availability of suitable road corridors, can significantly affect the practicality and cost of a pipeline connection~\cite{Frederiksen.2013}.
@@ -427,7 +471,7 @@ This intersection analysis provides a first-order indicator of technical connect
 \begin{figure}[H] 
 	\centering 
 	\includegraphics[width=0.5\linewidth]{Abbildungen/Intersection.png}
-	\caption{Intersection of WHS reachability area and DHA} 
+	\caption{Intersection of WHS reachability area and DHA.} 
 	\label{fig:Intersection} 
 \end{figure}
 
@@ -441,15 +485,18 @@ The webtool includes an integrated filtering interface (see Fig. ~\ref{fig:filte
 \begin{figure}[H] 
 	\centering 
 	\includegraphics[width=\linewidth]{Abbildungen/filter.png}
-	\caption{Filter interface} 
+	\vspace{-3.5em}
+	\caption{Filtering interface.} 
 	\label{fig:filter} 
 \end{figure}
+	\vspace{-0.5em}
+	
 Filters can be applied to specific regions, performance ranges, temperature levels, and waste heat categories. 
 Users may enter a city name or postal code to define a search centre and specify a search radius in kilometres. 
 Additional parameters include a minimum available thermal power and optionally a maximum distance to the nearest district heating area, enabling focused analysis of spatially relevant sources.
 
 A temperature slider allows dynamic restriction of the displayed sources to selected temperature intervals between~0\,°C and~200\,°C. 
-Further checkboxes enable filtering by waste heat category as described in Table ~\ref{tab:whs_categories} and by indicative availability periods (e.g., continuous operation or weekday schedules). 
+Further checkboxes enable filtering by waste heat category as described in Table \ref{tab:whs_categories} and by indicative availability periods (e.g., continuous operation or weekday schedules). 
 Once applied, the filters immediately update the map view, allowing users to refine their search and focus on technically and spatially feasible heat sources within the defined area of interest.
 
 \paragraph{Map Layout and Layer Structure.}
@@ -472,7 +519,7 @@ This enables users to quickly assess the relevance of a source without leaving t
 \begin{figure}[H] 
 	\centering 
 	\includegraphics[width=0.6\linewidth]{Abbildungen/legend.png}
-	\caption{Map legend} 
+	\caption{Map legend.} 
 	\label{fig:legend} 
 \end{figure}
 
@@ -488,7 +535,7 @@ The map view automatically adjusts its extent when filters are applied, ensuring
 \begin{figure}[H] 
 	\centering 
 	\includegraphics[width=0.4\linewidth]{Abbildungen/fan.png}
-	\caption{Multiple WHS with different temperature levels at one industrial site} 
+	\caption{Multiple WHS with different temperature levels at one industrial site.} 
 	\label{fig:fan} 
 \end{figure}
 
@@ -496,22 +543,27 @@ Overall, the interactive map representation forms the core of the user experienc
 It transforms numerical and spatial data into an interpretable visual environment that supports user-driven exploration, comparison, and qualitative assessment of waste heat utilisation potentials.
 
 
-\section{Conclusion}
+\newpage 
+\section{Conclusions}
 
 Large-scale heat pumps represent a promising technology for the decarbonization of the heating sector, particularly within existing DH systems. However, their deployment remains limited due to complex planning processes and a lack of early-stage planning tools. 
 
-The HeatSHIFT webtool addresses this gap by providing a freely accessible, user-friendly platform for the preliminary techno-economic and environmental evaluation of large-scale heat pump systems. It supports informed decision-making by combining refrigerant selection, cycle simulation, cost estimation, scenario and sensitivity analysis, and ecological assessment within a single framework.
+The \textit{HeatSHIFT Webtool} addresses this gap by providing a freely accessible, user-friendly platform for the preliminary techno-economic and environmental evaluation of large-scale heat pump systems. It supports informed decision-making by combining refrigerant selection, cycle simulation, cost estimation, scenario and sensitivity analysis, and ecological assessment within a single framework.
 
 By relying on validated default values and simplified modeling approaches, the tool enables a structured comparison of technology options, even in the absence of detailed input data. It thus provides valuable orientation for planners, utilities, and policymakers committed to accelerating the heat transition.
 
-The waste heat mapping platform presented here provides a structured and accessible way to screen industrial waste heat potentials by integrating national BAFA data with geospatial analysis, a transparent classification approach, and an intuitive interactive map. Through its combination of linear and network-based proximity calculations, it enables users to quickly identify where technically accessible waste heat sources coincide with areas of high heat demand.
+The \textit{HeatSHIFT Interactive Platform for Waste Heat Mapping and Analysis} presented here provides a structured and accessible way to screen industrial waste heat potentials by integrating national BAFA data with geospatial analysis, a transparent classification approach, and an intuitive interactive map. Through its combination of linear and network-based proximity calculations, it enables users to quickly identify where technically accessible waste heat sources coincide with areas of high heat demand.
 
 Although the tool is not intended to perform full techno-economic assessments, it offers a valuable first step in narrowing down promising candidate sites for further investigation. By transforming heterogeneous data into a coherent, user-driven spatial exploration environment, the platform supports early-stage planning and increases transparency in the identification of waste heat utilisation opportunities.
 
 Future enhancements may include additional infrastructure datasets, refined temporal modelling, and the development of a structured evaluation framework to further strengthen the platform’s analytical capabilities.
 
+\section{Acknowledgements}
+This work was funded by the German Federal Ministry for Economic Affairs and Climate Action under the funding code 03EN3073. Associated project partners, which partially provided co-funding, were AGFW, ecop Technologies GmbH, Fernwärme Ulm GmbH, Siemens Energy GmbH \& Co. KG and ZAK Energie GmbH. The partners had no role in the scientific analysis, interpretation of the results, or preparation of the manuscript, and the responsibility for the content of this publication lies with the authors. The authors would like to thank the funding agency and the partners for their cooperation and support during the study.
+
 \vspace{5mm}
 
+\newpage
 \begin{thebibliography}{99} %% use BibTeX or add references manually
 	
 \bibitem{agorarollout} Agora Energiewende, Fraunhofer IEG (2023). \textit{Roll-out von Großwärmepumpen in Deutschland. Strategien für den Markthochlauf in Wärmenetzen und Industrie}.
@@ -552,7 +604,7 @@ Future enhancements may include additional infrastructure datasets, refined temp
 Bundesstelle für Energieeffizienz (2025):
 \textit{Plattform für Abwärme}.
 Online verfügbar unter \url{https://www.bfee-online.de/BfEE/DE/Effizienzpolitik/Plattform_fuer_Abwaerme/plattform_fuer_abwaerme_node.html},
-zuletzt geprüft am 01.12.2025.
+zuletzt geprüft am 08.08.2026.
 
 \bibitem{Boeing.2017}
 Boeing, Geoff (2017):
