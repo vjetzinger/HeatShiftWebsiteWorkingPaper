@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.27)  8 AUG 2026 14:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.27)  28 OCT 2026 15:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./OPTICAmeetings.tex
-(OPTICAmeetings.tex
+**./HeatSHIFT_Working_Paper_2026.tex
+(HeatSHIFT_Working_Paper_2026.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
 
@@ -462,8 +462,8 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ckend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count317
-) (OPTICAmeetings.aux)
-\openout1 = `OPTICAmeetings.aux'.
+) (HeatSHIFT_Working_Paper_2026.aux)
+\openout1 = `HeatSHIFT_Working_Paper_2026.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
@@ -545,9 +545,10 @@ ktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring OFF on input line 62.
- (OPTICAmeetings.out) (OPTICAmeetings.out)
+ (HeatSHIFT_Working_Paper_2026.out)
+(HeatSHIFT_Working_Paper_2026.out)
 \@outlinefile=\write3
-\openout3 = `OPTICAmeetings.out'.
+\openout3 = `HeatSHIFT_Working_Paper_2026.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
  64.
@@ -605,11 +606,12 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 {C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex
 .map}{C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/Programs/MiKTeX/fonts/enc
-/dvips/base/8r.enc}] (OPTICAmeetings.toc)
+/dvips/base/8r.enc}] (HeatSHIFT_Working_Paper_2026.toc)
 \tf@toc=\write4
-\openout4 = `OPTICAmeetings.toc'.
+\openout4 = `HeatSHIFT_Working_Paper_2026.toc'.
 
- [2]
+
+[2]
 Underfull \hbox (badness 10000) in paragraph at lines 143--143
 []|\OT1/ptm/m/n/10.95 Federal Fund-ing for Ef-fi-cient
  []
@@ -884,22 +886,23 @@ treetMap\OT1/ptm/m/n/10 . On-line verf[]ugbar unter []$\OT1/pcr/m/n/10 https :
 / / www .
  []
 
-[21] (OPTICAmeetings.aux)
+[21] (HeatSHIFT_Working_Paper_2026.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
  ***********
-Package rerunfilecheck Info: File `OPTICAmeetings.out' has not changed.
+Package rerunfilecheck Info: File `HeatSHIFT_Working_Paper_2026.out' has not ch
+anged.
 (rerunfilecheck)             Checksum: 79A0DF7A9EB1A388595CA9CD7CFE56BA;4287.
  ) 
 Here is how much of TeX's memory you used:
  22441 strings out of 467871
- 489966 string characters out of 5409179
- 747988 words of memory out of 5000000
+ 490316 string characters out of 5409179
+ 748062 words of memory out of 5000000
  50955 multiletter control sequences out of 15000+600000
  685326 words of font info for 163 fonts, out of 8000000 for 9000
  1200 hyphenation exceptions out of 8191
- 72i,14n,79p,1348b,594s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,14n,79p,1362b,594s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmmi10.pfb><C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Finkenrm.MB-
@@ -912,7 +915,7 @@ nrm.MB-NB-S105-FIM2/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a
 .pfb><C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/urw/times/utmr8a.pfb><C:/Users/Finkenrm.MB-NB-S105-FIM2/AppData/Local/Progra
 ms/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on OPTICAmeetings.pdf (21 pages, 1248363 bytes).
+Output written on HeatSHIFT_Working_Paper_2026.pdf (21 pages, 1248367 bytes).
 PDF statistics:
  479 PDF objects out of 1000 (max. 8388607)
  103 named destinations out of 1000 (max. 500000)
